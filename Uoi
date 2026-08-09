@@ -1,0 +1,28 @@
+local R=loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local W=R:CreateWindow({Name="Elevator UI",LoadingTitle="Loading"})
+local T=W:CreateTab("Main",4483362458)
+
+local function send()
+    game:GetService("ReplicatedStorage").RemotesFolder.CreateElevator:FireServer(unpack({{
+        Mods={"EntitiesLess"},Settings={},Destination="Hotel",FriendsOnly=true,MaxPlayers="3"
+    }}))
+end
+
+T:CreateButton({Name="Create",Callback=send})
+
+local a=false
+T:CreateToggle({
+    Name="Auto",
+    CurrentValue=false,
+    Callback=function(v)
+        a=v
+        while a do send() task.wait(2) end
+    end
+})
+
+T:CreateButton({
+    Name="Spam x10",
+    Callback=function()
+        for i=1,10 do send() task.wait(0.2) end
+    end
+})
